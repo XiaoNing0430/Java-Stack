@@ -1,0 +1,60 @@
+spring:
+  # 数据库相关配置
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/java_stack?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+
+  # jackson相关配置
+  jackson:
+    # json处理时忽略空字段
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  data:
+    # redis 相关配置
+    redis:
+      host: 192.168.111.211
+      port: 6379
+      database: 0
+      password: root
+      lettuce:
+        pool:
+          enabled: on
+          # 连接池最大连接数
+          max-active: 8
+          # 最大空闲连接数
+          max-idle: 4
+
+
+mybatis-plus:
+  configuration:
+    # 在控制台打印sql文件
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+  mapper-location: classpath:mybatis/mapper/*.xml
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+
+security:
+  ignoreUrl: /v3/**, swagger-ui/**, /swagger-ui.html
+  loginProcessingUrl: /api/user/login
+
+jwt:
+  # 密钥
+  secret: abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij
+  # 过期时间(60*60*24*7)
+  expiration: 604800
+  # token 头
+  tokenHead: 'Bearer '
+  tokenHeader: Authorization
